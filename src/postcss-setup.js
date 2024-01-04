@@ -28,14 +28,14 @@ export async function checkPostCSSConfigExists() {
 	]
 
 	// Iterate through the possible configuration filenames to find an existing file
-	for (const pattern of configPatterns) {
-		const configFilePath = path.join(rootDir, pattern)
+	for ( const pattern of configPatterns ) {
+		const configFilePath = path.join( rootDir, pattern )
 		// Check if the file exists and return its path if it does
 		if (
 			await fs
-				.access(configFilePath)
-				.then(() => true)
-				.catch(() => false)
+				.access( configFilePath )
+				.then( () => true )
+				.catch( () => false )
 		) {
 			return configFilePath
 		}
@@ -48,22 +48,22 @@ export async function checkPostCSSConfigExists() {
 export async function createPostCSSConfig() {
 	const rootDir = process.cwd()
 	const configFileName = "postcss.config.cjs" // Default to .cjs for new files
-	const configFilePath = path.join(rootDir, configFileName)
+	const configFilePath = path.join( rootDir, configFileName )
 	const initialContent = `${mantineComment}\nmodule.exports = {\n  plugins: {\n    ${mantineConfig}\n  },\n};\n`
 
 	// Write the initial content to the new PostCSS configuration file
-	await fs.writeFile(configFilePath, initialContent)
+	await fs.writeFile( configFilePath, initialContent )
 }
 
 // Updates an existing PostCSS configuration file with the Mantine settings
-export async function updatePostCSSConfig(configFilePath: string) {
-	let configContent = await fs.readFile(configFilePath, "utf-8")
+export async function updatePostCSSConfig( configFilePath ) {
+	let configContent = await fs.readFile( configFilePath, "utf-8" )
 
 	// Determine if the file is using CommonJS or ES Modules syntax based on the content
-	const isCommonJS = configContent.includes("module.exports")
+	const isCommonJS = configContent.includes( "module.exports" )
 
 	// Ensure the Mantine comment is at the top of the file, if not, add it
-	if (!configContent.includes(mantineComment)) {
+	if ( !configContent.includes( mantineComment ) ) {
 		configContent = `${mantineComment}\n${configContent}`
 	}
 
@@ -71,39 +71,39 @@ export async function updatePostCSSConfig(configFilePath: string) {
 	const hasPresetMantine = configContent.includes(
 		"'postcss-preset-mantine': {},"
 	)
-	const hasSimpleVars = configContent.includes("'postcss-simple-vars': {")
+	const hasSimpleVars = configContent.includes( "'postcss-simple-vars': {" )
 
 	// Prepare the new plugin configuration if the plugins are not already present
 	let newPluginConfig = ""
-	if (!hasPresetMantine) {
+	if ( !hasPresetMantine ) {
 		newPluginConfig += "\n    'postcss-preset-mantine': {},"
 	}
-	if (!hasSimpleVars) {
+	if ( !hasSimpleVars ) {
 		newPluginConfig += mantineConfig
 	}
 
 	// Add the new plugin configuration to the 'plugins' object if it's not already present
-	if (newPluginConfig) {
+	if ( newPluginConfig ) {
 		const pluginsRegex = /plugins\s*:\s*{/
-		const pluginsExist = pluginsRegex.test(configContent)
+		const pluginsExist = pluginsRegex.test( configContent )
 
-		if (pluginsExist) {
+		if ( pluginsExist ) {
 			// If 'plugins' key exists, add the missing Mantine config within it
 			const insertionPoint =
-				configContent.search(pluginsRegex) + "plugins: {".length
+				configContent.search( pluginsRegex ) + "plugins: {".length
 			configContent =
-				configContent.slice(0, insertionPoint) +
+				configContent.slice( 0, insertionPoint ) +
 				newPluginConfig +
-				configContent.slice(insertionPoint)
-		} else if (isCommonJS) {
+				configContent.slice( insertionPoint )
+		} else if ( isCommonJS ) {
 			// If 'plugins' key does not exist and the file is CommonJS, add the entire 'plugins' object
 			const exportStatement = "module.exports = {"
 			const insertionPoint =
-				configContent.indexOf(exportStatement) + exportStatement.length
+				configContent.indexOf( exportStatement ) + exportStatement.length
 			configContent =
-				configContent.slice(0, insertionPoint) +
+				configContent.slice( 0, insertionPoint ) +
 				`\n  plugins: {${newPluginConfig}\n  },` +
-				configContent.slice(insertionPoint)
+				configContent.slice( insertionPoint )
 		} else {
 			// If the file does not match the expected format, throw an error
 			throw new Error(
@@ -113,7 +113,7 @@ export async function updatePostCSSConfig(configFilePath: string) {
 	}
 
 	// Write the updated content back to the PostCSS configuration file
-	await fs.writeFile(configFilePath, configContent)
+	await fs.writeFile( configFilePath, configContent )
 }
 
 // Main function to ensure the PostCSS configuration is set up correctly
@@ -123,15 +123,15 @@ export async function ensurePostCSSConfig() {
 		const configFilePath = await checkPostCSSConfigExists()
 
 		// If a config file exists, update it with Mantine settings
-		if (configFilePath) {
-			await updatePostCSSConfig(configFilePath)
+		if ( configFilePath ) {
+			await updatePostCSSConfig( configFilePath )
 		} else {
 			// If no config file exists, create a new one with Mantine settings
 			await createPostCSSConfig()
 		}
-	} catch (error: any) {
+	} catch ( error ) {
 		// If an error occurs, log it and rethrow to be handled by the caller
-		console.error("Error ensuring PostCSS config:", error.message)
+		console.error( "Error ensuring PostCSS config:", error.message )
 		throw error
 	}
 }

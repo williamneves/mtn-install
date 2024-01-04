@@ -7,28 +7,15 @@
     "type": "git",
     "url": "git+https://github.com/williamneves/mtn-install"
   },
-  "main": "./dist/index.js",
-  "bin": "./dist/index.js",
+  "main": "index.js",
+  "bin": "index.js",
   "type": "module",
-  "devDependencies": {
-    "@types/gradient-string": "^1.1.5",
-    "bun-types": "latest"
-  },
   "scripts": {
-    "build": "bun run build.mjs",
-    "prepublishOnly": "bun run build",
-    "start": "bun run ./dist/index.js",
-    "dev": "bun ./index.ts"
-  },
-  "peerDependencies": {
-    "typescript": "^5.0.0"
+    "start": "node index.js"
   },
   "dependencies": {
     "@inquirer/prompts": "^3.3.0",
     "@inquirer/select": "^1.3.1",
-    "@types/figlet": "^1.5.8",
-    "bun": "^1.0.21",
-    "bun-plugin-dts": "^0.2.1",
     "chalk-animation": "^2.0.3",
     "figlet": "^1.7.0",
     "gradient-string": "^2.0.2",

@@ -1,18 +1,18 @@
 import figlet from "figlet"
 import gradient from "gradient-string"
-import { LogOptions, log } from "./lib/utils"
 import chalk from "chalk"
+import { log } from "./lib/utils.js"
 
 export async function welcome() {
 	console.log(
 		gradient.rainbow(
-			figlet.textSync("MANTINE TW", {
+			figlet.textSync( "MANTINE TW", {
 				font: "Standard",
 				horizontalLayout: "universal smushing",
 				verticalLayout: "full",
 				width: 140,
 				whitespaceBreak: true,
-			})
+			} )
 		)
 	)
 
@@ -39,9 +39,9 @@ export async function welcome() {
 			),
 			newLine: true,
 		},
-	] satisfies LogOptions[]
+	]
 
-	for (const message of messages) {
-		await log(message)
+	for ( const message of messages ) {
+		await log( message )
 	}
 }
