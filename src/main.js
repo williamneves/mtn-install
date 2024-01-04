@@ -1,7 +1,6 @@
 import chalk from "chalk"
 import { createSpinner } from "nanospinner"
 import select, { Separator } from "@inquirer/select"
-import confirm from "@inquirer/confirm"
 import { log, sleep } from "./lib/utils.js"
 import { checkProjectCompatibility } from "./check-compatibility.js"
 import { welcome } from "./welcome.js"
@@ -92,9 +91,19 @@ export async function main() {
         })
       )
 
-      const confirmInstall = await confirm({
+      const confirmInstall = await select({
         message: chalk.bold("👉 Are you sure you want to continue?"),
-        default: true,
+        choices: [
+          {
+            value: true,
+            name: "Yes",
+          },
+          {
+            value: false,
+            name: "No",
+            description: "This option will abort the installation",
+          },
+        ],
       })
 
       if (!confirmInstall) {
