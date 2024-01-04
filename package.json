@@ -1,6 +1,6 @@
 {
   "name": "mtn-install",
-  "version": "0.0.11b",
+  "version": "0.0.11-beta",
   "description": "Install Mantine in your Next.js project with a CLI tool",
   "homepage": "https://github.com/williamneves/mtn-install",
   "license": "MIT",
