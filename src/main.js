@@ -95,12 +95,12 @@ export async function main() {
         choices: [
           {
             value: true,
-            name: "Yes"
+            name: chalk.green.bold("Yes")
           },
           {
             value: false,
-            name: "No",
-            description: "This option will abort the installation"
+            name: chalk.red("No"),
+            description: chalk.gray("This option will abort the installation")
           }
         ]
       })
