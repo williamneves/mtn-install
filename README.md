@@ -2,6 +2,9 @@
 
 MTN-INSTALL is a package that allows you to install the UI Library Mantine.dev in your Next.js project.
 
+### Check the Video
+[MTN-INSTALL-VIDEO](https://www.loom.com/share/5a4eaf8d6fb3483592df481c8cfe59d9?sid=cd8bdbcf-5a6d-4056-8249-3e5feaed4981)
+
 ## Installation
 ```
 npx mtn-install@latest
