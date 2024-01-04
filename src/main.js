@@ -39,7 +39,7 @@ export async function main() {
   // Question with prompt select, what the user want to do
   // Options: Add Mantine, Add Mantine Modules (comming soon), Add Tailwind CSS (comming soon)
 
-  console.log("\n")
+  console.log("")
 
   const action = await select({
     message: chalk.bold("👉 What do you want to do?"),
@@ -67,7 +67,7 @@ export async function main() {
 
   // if action is add-mantine, question if the user want to add the the mantine provider, css on the project, or if wanna just add to the package.json
 
-  console.log("\n")
+  console.log("")
 
   if (action === "add-mantine") {
     const mantineAction = await select({
