@@ -68,7 +68,7 @@ export async function main() {
   console.log("\n")
 
   if (action === "add-mantine") {
-    const mantineAction = select({
+    const mantineAction = await select({
       message: chalk.bold("👉 What type of instalation you want?"),
       choices: [
         {
@@ -84,13 +84,13 @@ export async function main() {
     })
 
     if (mantineAction === "full-setup") {
-      log({
+      await log({
         text: chalk.yellow({
           text: "Mantine UI with the latest stable version will be installed.\nYour Next.js files will be modified to add the Mantine Provider and CSS."
         })
       })
 
-      const confirmInstall = select({
+      const confirmInstall = await select({
         message: chalk.bold("👉 Are you sure you want to continue?"),
         choices: [
           {
@@ -106,8 +106,8 @@ export async function main() {
       })
 
       if (!confirmInstall) {
-        log(
-          chalk.yellow({ text: "Mantine UI installation aborted.", ms: 2000 })
+        await log(
+          chalk.red({ text: "Mantine UI installation aborted.", ms: 1500 })
         )
         process.exit(0)
       }

@@ -1,6 +1,6 @@
 {
   "name": "mtn-install",
-  "version": "0.0.10b",
+  "version": "0.0.11b",
   "description": "Install Mantine in your Next.js project with a CLI tool",
   "homepage": "https://github.com/williamneves/mtn-install",
   "license": "MIT",
@@ -14,7 +14,11 @@
   "scripts": {
     "start": "node index.js",
     "format": "prettier --write \"src/**/*.{js,jsx}\"",
-    "lint": "eslint \"src/**/*.{js,jsx}\" --fix"
+    "lint": "eslint \"src/**/*.{js,jsx}\" --fix",
+    "prepublishOnly": "npm run lint && npm run format && git add . && git commit -m \"chore: publish\" && git push",
+    "publish:patch": "npm run prepublishOnly && npm version patch && npm publish",
+    "publish:minor": "npm run prepublishOnly && npm version minor && npm publish",
+    "publish:major": "npm run prepublishOnly && npm version major && npm publish"
   },
   "dependencies": {
     "@inquirer/confirm": "^2.0.15",
