@@ -68,10 +68,10 @@ export async function updatePostCSSConfig(configFilePath) {
   }
 
   // Check if the specific Mantine plugins are already present in the file
-  const hasPresetMantine = configContent.includes(
-    "'postcss-preset-mantine': {},"
+  const hasPresetMantine = /'postcss-preset-mantine'\s*:\s*{}/.test(
+    configContent
   )
-  const hasSimpleVars = configContent.includes("'postcss-simple-vars': {")
+  const hasSimpleVars = /'postcss-simple-vars'\s*:\s*{/.test(configContent)
 
   // Prepare the new plugin configuration if the plugins are not already present
   let newPluginConfig = ""

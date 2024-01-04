@@ -1,7 +1,8 @@
 import chalk from "chalk"
 import { createSpinner } from "nanospinner"
 import select, { Separator } from "@inquirer/select"
-import { sleep } from "./lib/utils.js"
+import confirm from "@inquirer/confirm"
+import { log, sleep } from "./lib/utils.js"
 import { checkProjectCompatibility } from "./check-compatibility.js"
 import { welcome } from "./welcome.js"
 import { ensurePostCSSConfig } from "./postcss-setup.js"
@@ -39,10 +40,8 @@ export async function main() {
   // Question with prompt select, what the user want to do
   // Options: Add Mantine, Add Mantine Modules (comming soon), Add Tailwind CSS (comming soon)
 
-  console.log(chalk.bold("\nWhat do you want to do?"))
-
   const action = await select({
-    message: "👉",
+    message: chalk.bold("👉 What do you want to do?"),
     choices: [
       {
         value: "add-mantine",
@@ -67,10 +66,11 @@ export async function main() {
 
   // if action is add-mantine, question if the user want to add the the mantine provider, css on the project, or if wanna just add to the package.json
 
+  console.log("\n")
+
   if (action === "add-mantine") {
-    console.log(chalk.bold("\nWhat type of instalation you want?"))
     const mantineAction = await select({
-      message: "👉",
+      message: chalk.bold("👉 What type of instalation you want?"),
       choices: [
         {
           value: "full-setup",
@@ -80,12 +80,31 @@ export async function main() {
         {
           value: "only-package",
           name: "Add Mantine to package.json only",
+          disabled: "(Coming soon...)",
           // description: chalk.gray("Let me handle the rest"),
         },
       ],
     })
 
     if (mantineAction === "full-setup") {
+      log(
+        chalk.yellow({
+          text: "Mantine UI with the latest stable version will be installed.\nYour Next.js files will be modified to add the Mantine Provider and CSS.",
+          ms: 2000,
+        })
+      )
+
+      const confirmInstall = await confirm({
+        message: chalk.bold("👉 Are you sure you want to continue?"),
+      })
+
+      if (!confirmInstall) {
+        log(
+          chalk.yellow({ text: "Mantine UI installation aborted.", ms: 2000 })
+        )
+        process.exit(0)
+      }
+
       const installSpinner = createSpinner(
         "Installing Mantine with Provider & CSS..."
       )
@@ -113,7 +132,7 @@ export async function main() {
       try {
         await setupMantineInNextProject()
         installSpinner.update({
-          text: "Mantine has been successfully installed.",
+          text: "Mantine Provider and CSS has been successfully installed.",
           color: "green",
         })
         await sleep(1000)
@@ -129,7 +148,7 @@ export async function main() {
       // Install Mantine in package.json
       try {
         installSpinner.update({
-          text: "Installing Mantine in package.json...",
+          text: "Installing Mantine packages in package.json...",
           color: "yellow",
         })
         await runMantinePackageInstallation()
@@ -147,10 +166,10 @@ export async function main() {
       }
       await sleep(1000)
       installSpinner.success({
-        text: "Mantine Provider & CSS has been successfully installed.",
+        text: "Mantine Provider & CSS and all packages has been successfully installed, enjoy!",
       })
 
-      return
+      process.exit(0)
     }
   }
 }
