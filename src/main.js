@@ -1,7 +1,7 @@
 import chalk from "chalk"
 import { createSpinner } from "nanospinner"
 import select, { Separator } from "@inquirer/select"
-import { sleep } from "./lib/utils.js"
+import { log, sleep } from "./lib/utils.js"
 import { checkProjectCompatibility } from "./check-compatibility.js"
 import { welcome } from "./welcome.js"
 import { ensurePostCSSConfig } from "./postcss-setup.js"
@@ -84,13 +84,11 @@ export async function main() {
     })
 
     if (mantineAction === "full-setup") {
-      console.log({
-        text: chalk.yellow({
-          text: "Mantine UI with the latest stable version will be installed.\nYour Next.js files will be modified to add the Mantine Provider and CSS."
-        })
+      await log({
+        text: chalk.yellow(
+          "Mantine UI with the latest stable version will be installed.\nYour Next.js files will be modified to add the Mantine Provider and CSS."
+        )
       })
-
-      await sleep(2000)
 
       const confirmInstall = await select({
         message: chalk.bold("👉 Are you sure you want to continue?"),
@@ -108,9 +106,9 @@ export async function main() {
       })
 
       if (!confirmInstall) {
-        console.log(
-          chalk.red({ text: "Mantine UI installation aborted.", ms: 1500 })
-        )
+        await log({
+          text: chalk.red("Mantine UI installation aborted.")
+        })
         process.exit(0)
       }
 
