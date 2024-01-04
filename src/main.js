@@ -75,13 +75,11 @@ export async function main() {
         {
           value: "full-setup",
           name: "Add Mantine Provider & CSS",
-          // description: chalk.gray("Add Mantine Provider & CSS to your project"),
         },
         {
           value: "only-package",
           name: "Add Mantine to package.json only",
           disabled: "(Coming soon...)",
-          // description: chalk.gray("Let me handle the rest"),
         },
       ],
     })
@@ -96,6 +94,7 @@ export async function main() {
 
       const confirmInstall = await confirm({
         message: chalk.bold("👉 Are you sure you want to continue?"),
+        default: true,
       })
 
       if (!confirmInstall) {
