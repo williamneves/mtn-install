@@ -24,7 +24,8 @@ export async function welcome() {
     },
     {
       text: "This is a simple CLI tool to help you get started with Mantine\nand your Next.js project.",
-      ms: 400
+      ms: 400,
+      newLine: true
     },
     // {
     // 	text: `And also help to add ${chalk.blueBright(

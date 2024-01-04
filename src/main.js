@@ -39,6 +39,8 @@ export async function main() {
   // Question with prompt select, what the user want to do
   // Options: Add Mantine, Add Mantine Modules (comming soon), Add Tailwind CSS (comming soon)
 
+  console.log("\n")
+
   const action = await select({
     message: chalk.bold("👉 What do you want to do?"),
     choices: [
@@ -86,7 +88,7 @@ export async function main() {
     if (mantineAction === "full-setup") {
       await log({
         text: chalk.yellow(
-          "Mantine UI with the latest stable version will be installed.\nYour Next.js files will be modified to add the Mantine Provider and CSS."
+          "\nMantine UI with the latest stable version will be installed.\nYour Next.js files will be modified to add the Mantine Provider and CSS.\n"
         )
       })
 
