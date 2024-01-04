@@ -11,7 +11,7 @@ export async function welcome() {
         horizontalLayout: "universal smushing",
         verticalLayout: "full",
         width: 140,
-        whitespaceBreak: true,
+        whitespaceBreak: true
       })
     )
   )
@@ -20,11 +20,11 @@ export async function welcome() {
     {
       text: "🚀 Welcome to MTN-INSTALL ✨",
       ms: 300,
-      newLine: true,
+      newLine: true
     },
     {
       text: "This is a simple CLI tool to help you get started with Mantine\nand your Next.js project.",
-      ms: 400,
+      ms: 400
     },
     // {
     // 	text: `And also help to add ${chalk.blueBright(
@@ -36,14 +36,14 @@ export async function welcome() {
     {
       text: chalk.yellowBright(
         "🌟 Consider starring the project if you find it useful"
-      ),
+      )
     },
     {
       text: chalk.bold(
         "https://github.com/williamneves/mtn-install.git (ctrl + click)"
       ),
-      newLine: true,
-    },
+      newLine: true
+    }
   ]
 
   for (const message of messages) {

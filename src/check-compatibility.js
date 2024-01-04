@@ -21,7 +21,7 @@ export async function checkProjectCompatibility() {
   const packageJson = JSON.parse(packageJsonData)
   const dependencies = {
     ...packageJson.dependencies,
-    ...packageJson.devDependencies,
+    ...packageJson.devDependencies
   }
 
   const hasNext = "next" in dependencies

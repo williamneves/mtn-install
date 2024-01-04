@@ -5,11 +5,11 @@ import * as path from "path"
 export async function detectNextRouterType(projectRoot) {
   const appRouterPaths = [
     path.join(projectRoot, "app", "layout.tsx"),
-    path.join(projectRoot, "src", "app", "layout.tsx"),
+    path.join(projectRoot, "src", "app", "layout.tsx")
   ]
   const pageRouterPaths = [
     path.join(projectRoot, "pages", "_app.tsx"),
-    path.join(projectRoot, "src", "pages", "_app.tsx"),
+    path.join(projectRoot, "src", "pages", "_app.tsx")
   ]
 
   // Check each path for the existence of the layout or _app file

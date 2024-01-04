@@ -22,13 +22,13 @@ export async function main() {
     await checkProjectCompatibility()
     spinner.update({
       text: "Project compatibility check passed.",
-      color: "green",
+      color: "green"
     })
     spinner.success()
   } catch (error) {
     spinner.update({
       text: error.message,
-      color: "red",
+      color: "red"
     })
     spinner.error()
     process.exit(1)
@@ -44,7 +44,7 @@ export async function main() {
     choices: [
       {
         value: "add-mantine",
-        name: "Add Mantine",
+        name: "Add Mantine"
         // description: "Add Mantine to your project",
       },
       new Separator(),
@@ -52,15 +52,15 @@ export async function main() {
         value: "add-mantine-modules",
         name: "Add Mantine Modules",
         // description: "Add Mantine Modules to your project",
-        disabled: "(Coming soon...)",
+        disabled: "(Coming soon...)"
       },
       {
         value: "add-tailwindcss",
         name: "Add Tailwind CSS",
         // description: "Add Tailwind CSS to your project",
-        disabled: "(Coming soon...)",
-      },
-    ],
+        disabled: "(Coming soon...)"
+      }
+    ]
   })
 
   // if action is add-mantine, question if the user want to add the the mantine provider, css on the project, or if wanna just add to the package.json
@@ -68,42 +68,41 @@ export async function main() {
   console.log("\n")
 
   if (action === "add-mantine") {
-    const mantineAction = await select({
+    const mantineAction = select({
       message: chalk.bold("👉 What type of instalation you want?"),
       choices: [
         {
           value: "full-setup",
-          name: "Add Mantine Provider & CSS",
+          name: "Add Mantine Provider & CSS"
         },
         {
           value: "only-package",
           name: "Add Mantine to package.json only",
-          disabled: "(Coming soon...)",
-        },
-      ],
+          disabled: "(Coming soon...)"
+        }
+      ]
     })
 
     if (mantineAction === "full-setup") {
-      log(
-        chalk.yellow({
-          text: "Mantine UI with the latest stable version will be installed.\nYour Next.js files will be modified to add the Mantine Provider and CSS.",
-          ms: 2000,
+      log({
+        text: chalk.yellow({
+          text: "Mantine UI with the latest stable version will be installed.\nYour Next.js files will be modified to add the Mantine Provider and CSS."
         })
-      )
+      })
 
-      const confirmInstall = await select({
+      const confirmInstall = select({
         message: chalk.bold("👉 Are you sure you want to continue?"),
         choices: [
           {
             value: true,
-            name: "Yes",
+            name: "Yes"
           },
           {
             value: false,
             name: "No",
-            description: "This option will abort the installation",
-          },
-        ],
+            description: "This option will abort the installation"
+          }
+        ]
       })
 
       if (!confirmInstall) {
@@ -123,14 +122,14 @@ export async function main() {
         await ensurePostCSSConfig()
         installSpinner.update({
           text: "PostCSS configuration updated.",
-          color: "green",
+          color: "green"
         })
 
         await sleep(1000)
       } catch (error) {
         installSpinner.update({
           text: error.message,
-          color: "red",
+          color: "red"
         })
         installSpinner.error()
         process.exit(1)
@@ -141,13 +140,13 @@ export async function main() {
         await setupMantineInNextProject()
         installSpinner.update({
           text: "Mantine Provider and CSS has been successfully installed.",
-          color: "green",
+          color: "green"
         })
         await sleep(1000)
       } catch (error) {
         installSpinner.update({
           text: error.message,
-          color: "red",
+          color: "red"
         })
         installSpinner.error()
         process.exit(1)
@@ -157,24 +156,24 @@ export async function main() {
       try {
         installSpinner.update({
           text: "Installing Mantine packages in package.json...",
-          color: "yellow",
+          color: "yellow"
         })
         await runMantinePackageInstallation()
         installSpinner.update({
           text: "Mantine Packages has been successfully installed.",
-          color: "green",
+          color: "green"
         })
       } catch (error) {
         installSpinner.update({
           text: error.message,
-          color: "red",
+          color: "red"
         })
         installSpinner.error()
         process.exit(1)
       }
       await sleep(1000)
       installSpinner.success({
-        text: "Mantine Provider & CSS and all packages has been successfully installed, enjoy!",
+        text: "Mantine Provider & CSS and all packages has been successfully installed, enjoy!"
       })
 
       process.exit(0)

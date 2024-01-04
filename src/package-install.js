@@ -12,7 +12,7 @@ const PackageManager = {
   Npm: "npm",
   Pnpm: "pnpm",
   Yarn: "yarn",
-  Bun: "bun",
+  Bun: "bun"
 }
 
 export async function detectPackageManager(projectRoot) {
@@ -20,7 +20,7 @@ export async function detectPackageManager(projectRoot) {
     "package-lock.json": PackageManager.Npm,
     "pnpm-lock.yaml": PackageManager.Pnpm,
     "yarn.lock": PackageManager.Yarn,
-    "bun.lockb": PackageManager.Bun,
+    "bun.lockb": PackageManager.Bun
   }
 
   for (const [lockFile, packageManager] of Object.entries(lockFiles)) {
@@ -44,7 +44,7 @@ export async function installMantineCorePackages(packageManager, version) {
   const devPackages = [
     "postcss",
     "postcss-preset-mantine",
-    "postcss-simple-vars",
+    "postcss-simple-vars"
   ].map(pkg => `${pkg}`)
 
   let installCommand = ""
@@ -74,7 +74,7 @@ export async function installMantineCorePackages(packageManager, version) {
 
   try {
     await execAsync(installCommand, {
-      cwd: projectRoot,
+      cwd: projectRoot
     })
   } catch (error) {
     throw new Error(`Failed to install Mantine packages. ${error.message}`)

@@ -24,7 +24,7 @@ export async function checkPostCSSConfigExists() {
   const configPatterns = [
     "postcss.config.cjs",
     "postcss.config.js",
-    "postcss.config.mjs",
+    "postcss.config.mjs"
   ]
 
   // Iterate through the possible configuration filenames to find an existing file
